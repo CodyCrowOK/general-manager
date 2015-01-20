@@ -12,6 +12,20 @@
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
+		<script src='http://code.jquery.com/jquery-latest.min.js' type='text/javascript'></script>
+		<script type='text/javascript'>
+			$(window).load(function(){
+				jQuery(function($){
+				    var $button = $('#new-offense-row'),
+				        $row = $('.offense-row').clone(),
+				        $oldrow = $('.offense-row:last');
+				    
+				    $button.click(function(){
+				        $row.clone().insertAfter( $oldrow );
+				    });
+				});
+			});
+		</script>
 	</head>
 	<body>
 		[@NAV]
@@ -36,7 +50,49 @@
 							<input id="result" class="form-control" name="result" type="checkbox" /> Win? </label>
 						</div>
 						<h3>Offense</h3>
-						
+						<table class="table table-bordered" id="offense-table">
+							<tr>
+								<th>Player</th>
+								<th><abbr title="Plate Appearances">PA</abbr></th>
+								<th><abbr title="Hits">H</abbr></th>
+								<th><abbr title="Walks">BB</abbr></th>
+								<th><abbr title="Strikeouts">SO</abbr></th>
+								<th><abbr title="Hit by Pitch">HBP</abbr></th>
+								<th><abbr title="Doubles">2B</abbr></th>
+								<th><abbr title="Triples">3B</abbr></th>
+								<th><abbr title="Homeruns">HR</abbr></th>
+								<th><abbr title="Runs Batted In">RBI</abbr></th>
+								<th><abbr title="Sacrifice Bunts">SH</abbr></th>
+								<th><abbr title="Sacrifice Flies">SF</abbr></th>
+								<th><abbr title="Runs">R</abbr></th>
+								<th><abbr title="Stolen Bases">SB</abbr></th>
+								<th><abbr title="Caught Stealing">CS</abbr></th>
+								<th><abbr title="Ground into Double Play">GDP</abbr></th>
+							</tr>
+							<tr class="offense-row">
+								<td>
+									<select class="form-control" name="player[]">
+										[@select_options_players]
+									</select>
+								</td>
+								<td><input class="form-control" type="number" name="opa[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="oh[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="obb[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="oso[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="ohbp[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="o2b[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="o3b[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="ohr[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="orbi[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="osh[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="osf[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="or[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="osb[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="ocs[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="ogdp[]" value="0" /></td>
+							</tr>
+						</table>
+						<a class="btn btn-primary" id="new-offense-row"><span class="badge"> + </span> Add Player</a>
 					</form>
 				</div>
 			</div>

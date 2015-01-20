@@ -28,4 +28,30 @@ class Player
 		$this->number = $row["number"];
 		$this->is_pitcher = $row["is_pitcher"];
 	}
+
+	public function id()
+	{
+		return $this->id;
+	}
+
+	public function team()
+	{
+		return $this->team;
+	}
+	
+	public function name()
+	{
+		return $this->name;
+	}
+	
+	public function number()
+	{
+		return $this->number;
+	}
+	
+	public function is_pitcher()
+	{
+		return $this->is_pitcher;
+	}
+
 }
