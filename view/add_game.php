@@ -24,6 +24,15 @@
 				        $row.clone().insertAfter( $oldrow );
 				    });
 				});
+				jQuery(function($){
+				    var $button = $('#new-pitching-row'),
+				        $row = $('.pitching-row').clone(),
+				        $oldrow = $('.pitching-row:last');
+				    
+				    $button.click(function(){
+				        $row.clone().insertAfter( $oldrow );
+				    });
+				});
 			});
 		</script>
 	</head>
@@ -93,6 +102,49 @@
 							</tr>
 						</table>
 						<a class="btn btn-primary" id="new-offense-row"><span class="badge"> + </span> Add Player</a>
+						<h3>Pitching</h3>
+						<table class="table table-bordered" id="pitching-table">
+							<tr>
+								<th>Player</th>
+								<th>Starter?</th>
+								<th>Win?</th>
+								<th>Loss?</th>
+								<th><a target="_blank" href="http://en.wikipedia.org/wiki/Hold_(baseball)">Hold?</a></th>
+								<th>Save?</th>
+								<th>Blown Save?</th>
+								<th><abbr title="Innings Pitched">IP</abbr></th>
+								<th><abbr title="Hits">H</abbr></th>
+								<th><abbr title="Walks">BB</abbr></th>
+								<th><abbr title="Hit Batsman (Hit by Pitch)">HB</abbr></th>
+								<th><abbr title="Earned Runs">ER</abbr></th>
+								<th><abbr title="Strikeouts">K</abbr></th>
+								<th>Batters Faced</th>
+							</tr>
+							<tr class="pitching-row">
+								<td>
+									<select class="form-control" name="pitcher[]">
+										[@select_options_pitchers]
+									</select>
+								</td>
+								<td><input class="form-control" type="checkbox" name="pstart[]" /></td>
+								<td><input class="form-control" type="checkbox" name="pw[]" value="0" /></td>
+								<td><input class="form-control" type="checkbox" name="pl[]" value="0" /></td>
+								<td><input class="form-control" type="checkbox" name="phold[]" value="0" /></td>
+								<td><input class="form-control" type="checkbox" name="psave[]" value="0" /></td>
+								<td><input class="form-control" type="checkbox" name="pbs[]" value="0" /></td>
+								<td><input class="form-control" type="text" name="pip[]" placeholder="e.g. 6.2" /></td>
+								<td><input class="form-control" type="number" name="ph[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="pbb[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="phb[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="per[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="pk[]" value="0" /></td>
+								<td><input class="form-control" type="number" name="pbf[]" value="0" /></td>
+							</tr>
+						</table>
+						<a class="btn btn-primary" id="new-pitching-row" style="margin-bottom:20px;"><span class="badge"> + </span> Add Player</a>
+						<div class="form-group">
+							<input type="submit" value="Add Game" class="btn btn-default btn-lg" />
+						</div>
 					</form>
 				</div>
 			</div>

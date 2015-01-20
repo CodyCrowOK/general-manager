@@ -28,7 +28,7 @@
 				<p>General Manager is a sane, <strong>free</strong> way to manage your baseball team's statistics.</p>
 				<p>
 					<a class="btn btn-default btn-lg" href="#" role="button">Learn More</a>
-					<a class="btn btn-primary btn-lg" href="#" role="button">Sign Up</a>
+					<a class="btn btn-primary btn-lg" href="[@WWW_SITE]register.php" role="button">Sign Up</a>
 				</p>
 			</div>
 			<div class="lead">

@@ -18,7 +18,7 @@
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">General Manager</a>
-					<button type="button" class="btn btn-default navbar-btn navbar-right">Sign in</button>
+					<a class="btn btn-default navbar-btn navbar-right" href="[@WWW_SITE]login.php">Sign in</a>
 				</div>
 			</div>
 		</nav>
