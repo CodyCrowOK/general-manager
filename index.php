@@ -18,6 +18,7 @@ if ($user) {
 		</tr>";
 	}
 	$template->set("position_player", $position_player_html);
+	$template->set("team_name", $user->team()->name());
 } else {
 	$template->set_view("splash");
 }

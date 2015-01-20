@@ -46,6 +46,11 @@ class Team
 		return $this->id;
 	}
 
+	public function name()
+	{
+		return $this->name;
+	}
+
 	public function players()
 	{
 		$this->_load_players();

@@ -16,6 +16,7 @@ require_once "classes/Session.php";
 require_once "classes/User.php";
 require_once "classes/Team.php";
 require_once "classes/Player.php";
+require_once "classes/Game.php";	
 $template = new Template();
 $session = new Session();
 session_set_save_handler($session, true);
@@ -57,8 +58,8 @@ $template->set("NAV", $nav_html);
 $sidebar_html = '<div class="col-sm-3 col-md-2 sidebar">
 					<ul class="nav nav-sidebar">
 						<li id="overview"><a href="[@WWW_SITE]">Overview</a></li>
-						<li><a href="#">Add Game</a></li>
-						<li><a href="#">Recent Games</a></li>
+						<li id="add-game"><a href="[@WWW_SITE]add_game.php">Add Game</a></li>
+						<li id="recent-games"><a href="[@WWW_SITE]recent_games.php">Recent Games</a></li>
 					</ul>
 					<ul class="nav nav-sidebar">
 						<li><a href="#">Team Batting Statistics</a></li>

@@ -4,7 +4,7 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>General Manager - Overview</title>
+		<title>General Manager - Recent Games</title>
 		<link href="[@CSS_DIR]/bootstrap.css" rel="stylesheet" />
 		<link href="[@CSS_DIR]/dashboard.css" rel="stylesheet" />
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -20,10 +20,10 @@
 			<div class="row">
 				[@SIDEBAR]
 				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-					<h1 class="page-header">Team Overview <small>[@team_name]</small></h1>
-					<h3>Position Players</h3>
-					<table class="table">
-						[@position_player]
+					<h1 class="page-header">Recent Games <small>[@team_name]</small></h1>
+					<h3>Last Five</h3>
+					<table class="table table-hover">
+						[@last_five]
 					</table>
 				</div>
 			</div>
