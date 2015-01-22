@@ -1,12 +1,12 @@
 <?php
 class Player
 {
-	private $id;
+	protected $id;
 	public $team;
 	public $name;
 	public $number;
 	public $is_pitcher;
-	private $db;
+	protected $db;
 
 	public function __construct($id)
 	{
@@ -40,6 +40,17 @@ class Player
 		$this->name = $row["name"];
 		$this->number = $row["number"];
 		$this->is_pitcher = $row["is_pitcher"];
+	}
+
+	public function played_in_game($game_id)
+	{
+		$query = "SELECT * FROM `batting` WHERE `player` = :id AND `game` = :game";
+		$stmt = $this->db->prepare($query);
+		$stmt->bindParam(':id', $this->id(), PDO::PARAM_INT);
+		$stmt->bindParam(':game', $game_id, PDO::PARAM_INT);
+		$stmt->execute();
+		if ($stmt->rowCount() == 0) return false;
+		else return true;
 	}
 
 	public function id()

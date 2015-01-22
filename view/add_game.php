@@ -77,6 +77,7 @@
 								<th><abbr title="Stolen Bases">SB</abbr></th>
 								<th><abbr title="Caught Stealing">CS</abbr></th>
 								<th><abbr title="Ground into Double Play">GDP</abbr></th>
+								<th>Times on Base</th>
 							</tr>
 							<tr class="offense-row">
 								<td>
@@ -99,6 +100,7 @@
 								<td><input class="form-control" type="number" name="osb[]" value="0" min="0" /></td>
 								<td><input class="form-control" type="number" name="ocs[]" value="0" min="0" /></td>
 								<td><input class="form-control" type="number" name="ogdp[]" value="0" min="0" /></td>
+								<td><input class="form-control" type="number" name="otob[]" value="0" min="0" /></td>
 							</tr>
 						</table>
 						<a class="btn btn-primary" id="new-offense-row"><span class="badge"> + </span> Add Player</a>

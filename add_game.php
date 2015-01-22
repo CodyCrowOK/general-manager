@@ -74,6 +74,7 @@ function process_offensive_form_data($game_id)
 		$args[] = $_POST["osb"][$i];
 		$args[] = $_POST["ocs"][$i];
 		$args[] = $_POST["ogdp"][$i];
+		$args[] = $_POST["otob"][$i];
 
 		Game::create_game_offense($game_id, $args);
 	}
