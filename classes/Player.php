@@ -14,6 +14,19 @@ class Player
 		$this->_load_player($id);
 	}
 
+	public static function id_is_on_team($id, $team_id)
+	{
+		$id = intval($id);
+		$db = new PDO('mysql:host=localhost;dbname=manager;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_PERSISTENT => true));
+		$query = "SELECT * FROM `player` WHERE `team` = :team AND `id` = :id";
+		$stmt = $db->prepare($query);
+		$stmt->bindParam(':team', $team_id, PDO::PARAM_INT);
+		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+		if ($stmt->rowCount() == 0) return false;
+		else return true;
+	}
+
 	private function _load_player($id)
 	{
 		$query = "SELECT * FROM `player` WHERE `id` = :id";

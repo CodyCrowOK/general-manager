@@ -17,6 +17,7 @@ require_once "classes/User.php";
 require_once "classes/Team.php";
 require_once "classes/Player.php";
 require_once "classes/Game.php";	
+require_once "classes/Site.php";
 $template = new Template();
 $session = new Session();
 session_set_save_handler($session, true);
