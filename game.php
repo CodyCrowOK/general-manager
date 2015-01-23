@@ -34,12 +34,27 @@ if ($user) {
 						</tr>';
 		$or_copy = $offense_rows;
 
+		$defense_rows = '
+						<tr>
+							<th>Player</th>
+							<th>Innings Pitched</th>
+							<th><abbr title="Walks plus hits per inning pitched">WHIP</abbr></th>
+							<th><abbr title="Fielding Independent Pitching">FIP</abbr>
+							<th>Hits</abbr></th>
+							<th>Walks</abbr></th>
+							<th>Hit Batsmen</th>
+							<th>Earned Runs</th>
+							<th>Strikeouts</th>
+							<th>Batters Faced</th>
+						</tr>';
+		$dr_copy = $defense_rows;
+
 		foreach ($user->team()->players() as $player) {
 			if (!$player->played_in_game($game->id())) continue;
 			$batter = new GameBatter($player->id(), $game->id());
 
 			$ab = $batter->pa - ($batter->bb + $batter->hbp + $batter->sf + $batter->sh);
-			$rca = $batter->h + $batter->bb - $batter->cs + $batter->hbp;
+			$rca = $batter->h + $batter->bb - $batter->cs + $batter->hbp - $batter->gdp;
 			$rcb = (1.125 * ($batter->h - ($batter->doubles + $batter->triples + $batter->hr))) + (1.69 * $batter->doubles) + (3.02 * $batter->triples) + (3.73 * $batter->hr) + (.29 * ($batter->bb + $batter->hbp)) + (.492 * (($batter->sh + $batter->sf) + $batter->sb)) - (.04 * $batter->so);
 			$rcc = $ab + $batter->bb + $batter->hbp + $batter->sf + $batter->sh;
 			$rc = (((2.4 * $rcc + $rca) * (3 * $rcc + $rcb)) / (9 * $rcc)) - (.9 * $rcc);
@@ -65,9 +80,45 @@ if ($user) {
 						<td>" . $batter->tob . "</td>
 					</tr>
 					";
+			if ($player->is_pitcher()) {
+				$pitcher = new GamePitcher($player->id(), $game->id());
+				$attr = [];
+				if ($pitcher->start) $attr[] = "Starter";
+				if ($pitcher->win) $attr[] = "Win";
+				else if ($pitcher->loss) $attr[] = "Loss";
+				if ($pitcher->hold) $attr[] = "Hold";
+				if ($pitcher->bs) $attr[] = "Blown Save";
+				if ($pitcher->s) $attr[] = "Save";
+				$paren = " (";
+				foreach ($attr as $attribute) {
+					$paren .= $attribute . ", ";
+				}
+				$paren = substr($paren, 0, -2);
+				$paren .= ")";
+				if ($paren == ")") $paren = "";
+
+				$fip = (((13 * $pitcher->hr) + (3 * ($pitcher->bb + $pitcher->hbp)) - (2 * $pitcher->k)) / $pitcher->ip) + 3.1;
+
+				$defense_rows .= "<tr>
+							<td>" . $pitcher->name() . $paren . "</td>
+							<td>" . $pitcher->ip . "</td>
+							<td>" . sprintf("%.3f", ($pitcher->bb + $pitcher->h) / $pitcher->ip) . "</td>
+							<td>" . $fip . "</td>
+							<td>" . $pitcher->h . "</td>
+							<td>" . $pitcher->bb . "</td>
+							<td>" . $pitcher->hbp . "</td>
+							<td>" . $pitcher->er . "</td>
+							<td>" . $pitcher->k . "</td>
+							<td>" . $pitcher->bf . "</td>
+						</tr>
+						"; 
+			}
 		}
 		if ($or_copy == $offense_rows) $offense_rows = "<em>Sorry, no offensive data was entered for this game.</em>";
 		$template->set("offense_rows", $offense_rows);
+
+		if ($dr_copy == $defense_rows) $defense_rows = "<em>Sorry, no defensive data was entered for this game.</em>";
+		$template->set("defense_rows", $defense_rows);
 
 	} else {
 		header('Location: recent_games.php');

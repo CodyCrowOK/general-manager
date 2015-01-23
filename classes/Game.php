@@ -79,7 +79,7 @@ class Game
 	{
 		$game = new self($game_id);
 		$team_id = $game->team()->id();
-		$_ip = floatval($args[4]);
+		$_ip = floatval($args[7]);
 		if (fmod($_ip, 1.0) > .2) {
 			$innings_pitched = floor($_ip);
 		} else {
@@ -96,14 +96,14 @@ class Game
 		$stmt->bindParam(':win', $args[2], PDO::PARAM_INT);
 		$stmt->bindParam(':loss', $args[3], PDO::PARAM_INT);
 		$stmt->bindParam(':ip', $innings_pitched);
-		$stmt->bindParam(':h', $args[5], PDO::PARAM_INT);
-		$stmt->bindParam(':bb', $args[6], PDO::PARAM_INT);
-		$stmt->bindParam(':hbp', $args[7], PDO::PARAM_INT);
-		$stmt->bindParam(':er', $args[8], PDO::PARAM_INT);
-		$stmt->bindParam(':k', $args[9], PDO::PARAM_INT);
-		$stmt->bindParam(':hold', $args[10], PDO::PARAM_INT);
-		$stmt->bindParam(':s', $args[11], PDO::PARAM_INT);
-		$stmt->bindParam(':bs', $args[12], PDO::PARAM_INT);
+		$stmt->bindParam(':h', $args[8], PDO::PARAM_INT);
+		$stmt->bindParam(':bb', $args[9], PDO::PARAM_INT);
+		$stmt->bindParam(':hbp', $args[10], PDO::PARAM_INT);
+		$stmt->bindParam(':er', $args[11], PDO::PARAM_INT);
+		$stmt->bindParam(':k', $args[12], PDO::PARAM_INT);
+		$stmt->bindParam(':hold', $args[4], PDO::PARAM_INT);
+		$stmt->bindParam(':s', $args[5], PDO::PARAM_INT);
+		$stmt->bindParam(':bs', $args[6], PDO::PARAM_INT);
 		$stmt->bindParam(':bf', $args[13], PDO::PARAM_INT);
 		$stmt->execute();
 

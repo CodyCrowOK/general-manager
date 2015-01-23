@@ -17,20 +17,18 @@
 			$(window).load(function(){
 				jQuery(function($){
 				    var $button = $('#new-offense-row'),
-				        $row = $('.offense-row').clone(),
-				        $oldrow = $('.offense-row:last');
+				        $row = $('.offense-row').clone();
 				    
 				    $button.click(function(){
-				        $row.clone().insertAfter( $oldrow );
+				        $row.clone().insertAfter( $('.offense-row:last') );
 				    });
 				});
 				jQuery(function($){
 				    var $button = $('#new-pitching-row'),
-				        $row = $('.pitching-row').clone(),
-				        $oldrow = $('.pitching-row:last');
+				        $row = $('.pitching-row').clone();
 				    
 				    $button.click(function(){
-				        $row.clone().insertAfter( $oldrow );
+				        $row.clone().insertAfter( $('.pitching-row:last') );
 				    });
 				});
 			});
