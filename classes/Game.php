@@ -87,7 +87,7 @@ class Game
 		}
 
 		$db = new PDO('mysql:host=localhost;dbname=manager;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_PERSISTENT => true));
-		$query = "INSERT INTO `pitching` (`team`, `game`, `player`, `start`, `win`, `loss`, `ip`, `h`, `bb`, `hbp`, `er`, `k`, `hold`, `s`, `bs`, `bf`) VALUES (:team, :game, :player, :start, :win, :loss, :ip, :h, :bb, :hbp, :er, :k, :hold, :s, :bs, :bf);";
+		$query = "INSERT INTO `pitching` (`team`, `game`, `player`, `start`, `win`, `loss`, `ip`, `h`, `bb`, `hbp`, `er`, `k`, `hold`, `s`, `bs`, `bf`, `hr`) VALUES (:team, :game, :player, :start, :win, :loss, :ip, :h, :bb, :hbp, :er, :k, :hold, :s, :bs, :bf, :hr);";
 		$stmt = $db->prepare($query);
 		$stmt->bindParam(':team', $team_id, PDO::PARAM_INT);
 		$stmt->bindParam(':game', $game_id, PDO::PARAM_INT);
@@ -105,6 +105,7 @@ class Game
 		$stmt->bindParam(':s', $args[5], PDO::PARAM_INT);
 		$stmt->bindParam(':bs', $args[6], PDO::PARAM_INT);
 		$stmt->bindParam(':bf', $args[13], PDO::PARAM_INT);
+		$stmt->bindParam(':hr', $args[14], PDO::PARAM_INT);
 		$stmt->execute();
 
 	}

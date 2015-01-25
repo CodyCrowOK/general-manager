@@ -31,6 +31,7 @@ if ($user) {
 		if ($player->is_pitcher()) $pit = " (Pitcher)";
 		$select_options_players .= "<option value=\"" . $player->id() . "\">#" . $player->number() . " " . $player->name() . $pit . "</option>
 		";
+		unset($pit);
 	}
 
 	$template->set("select_options_players", $select_options_players);
@@ -102,6 +103,7 @@ function process_defensive_form_data($game_id)
 		$args[] = $_POST["per"][$i];
 		$args[] = $_POST["pk"][$i];
 		$args[] = $_POST["pbf"][$i];
+		$args[] = $_POST["phr"][$i];
 
 		Game::create_game_defense($game_id, $args);
 	}

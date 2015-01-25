@@ -39,12 +39,13 @@ if ($user) {
 							<th>Player</th>
 							<th>Innings Pitched</th>
 							<th><abbr title="Walks plus hits per inning pitched">WHIP</abbr></th>
-							<th><abbr title="Fielding Independent Pitching">FIP</abbr>
+							<th><abbr title="Fielding Independent Pitching (lower is better)">FIP</abbr>
 							<th>Hits</abbr></th>
 							<th>Walks</abbr></th>
 							<th>Hit Batsmen</th>
 							<th>Earned Runs</th>
 							<th>Strikeouts</th>
+							<th>Homeruns Allowed</th>
 							<th>Batters Faced</th>
 						</tr>';
 		$dr_copy = $defense_rows;
@@ -58,6 +59,7 @@ if ($user) {
 			$rcb = (1.125 * ($batter->h - ($batter->doubles + $batter->triples + $batter->hr))) + (1.69 * $batter->doubles) + (3.02 * $batter->triples) + (3.73 * $batter->hr) + (.29 * ($batter->bb + $batter->hbp)) + (.492 * (($batter->sh + $batter->sf) + $batter->sb)) - (.04 * $batter->so);
 			$rcc = $ab + $batter->bb + $batter->hbp + $batter->sf + $batter->sh;
 			$rc = (((2.4 * $rcc + $rca) * (3 * $rcc + $rcb)) / (9 * $rcc)) - (.9 * $rcc);
+			$rc = sprintf("%.3f", $rc);
 
 			$offense_rows .= "<tr>
 						<td>" . $batter->name() . "</td>
@@ -98,6 +100,7 @@ if ($user) {
 				if ($paren == ")") $paren = "";
 
 				$fip = (((13 * $pitcher->hr) + (3 * ($pitcher->bb + $pitcher->hbp)) - (2 * $pitcher->k)) / $pitcher->ip) + 3.1;
+				$fip = sprintf("%.02f", $fip);
 
 				$defense_rows .= "<tr>
 							<td>" . $pitcher->name() . $paren . "</td>
@@ -109,6 +112,7 @@ if ($user) {
 							<td>" . $pitcher->hbp . "</td>
 							<td>" . $pitcher->er . "</td>
 							<td>" . $pitcher->k . "</td>
+							<td>" . $pitcher->hr . "</td>
 							<td>" . $pitcher->bf . "</td>
 						</tr>
 						"; 

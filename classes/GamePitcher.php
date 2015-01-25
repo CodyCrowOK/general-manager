@@ -16,6 +16,7 @@ class GamePitcher extends Player
 	public $s;
 	public $bs;
 	public $bf;
+	public $hr;
 
 
 	public function __construct($id, $game)
@@ -41,5 +42,6 @@ class GamePitcher extends Player
 		$this->s = $row["s"];
 		$this->bs = $row["bs"];
 		$this->bf = $row["bf"];
+		$this->hr = $row["hr"];
 	}	
 }

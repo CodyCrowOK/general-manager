@@ -65,7 +65,7 @@ class Player
 	
 	public function name()
 	{
-		return $this->name;
+		return htmlentities($this->name);
 	}
 	
 	public function number()

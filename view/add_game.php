@@ -118,6 +118,7 @@
 								<th><abbr title="Hit Batsman (Hit by Pitch)">HB</abbr></th>
 								<th><abbr title="Earned Runs">ER</abbr></th>
 								<th><abbr title="Strikeouts">K</abbr></th>
+								<th><abbr title="Homeruns Allowed">HR</abbr></th>
 								<th>Batters Faced</th>
 							</tr>
 							<tr class="pitching-row">
@@ -138,6 +139,7 @@
 								<td><input class="form-control" type="number" name="phb[]" value="0" min="0" /></td>
 								<td><input class="form-control" type="number" name="per[]" value="0" min="0" /></td>
 								<td><input class="form-control" type="number" name="pk[]" value="0" min="0" /></td>
+								<td><input class="form-control" type="number" name="phr[]" value="0" min="0" /></td>
 								<td><input class="form-control" type="number" name="pbf[]" value="0" min="0" /></td>
 							</tr>
 						</table>
