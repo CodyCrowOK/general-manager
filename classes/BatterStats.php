@@ -31,6 +31,69 @@ class BatterStats extends Player
 		$this->_populate($id);
 	}
 
+	public static function highest_ops($players)
+	{
+		$high = $id = 0;
+		foreach ($players as $player) {
+			$stats = new self($player->id());
+			if ($stats->ops() > $high) {
+				$high = $stats->ops();
+				$id = $stats->id();
+			}
+		}
+
+		return new self($id);
+	}
+
+	public static function best_remaining_slg($players, $used)
+	{
+		$high = $id = 0;
+		//We don't want to count the player if they've been used already.
+		foreach ($players as $player) {
+			if (in_array($player->id(), $used)) continue;
+			$stats = new self($player->id());
+			if ($stats->slg() > $high) {
+				$high = $stats->slg();
+				$id = $stats->id();
+			}
+		}
+
+		return new self($id);
+	}
+
+	public static function best_remaining_obp($players, $used)
+	{
+		$high = $id = 0;
+		//We don't want to count the player if they've been used already.
+		foreach ($players as $player) {
+			if (in_array($player->id(), $used)) continue;
+			$stats = new self($player->id());
+			if ($stats->obp() > $high) {
+				$high = $stats->obp();
+				$id = $stats->id();
+			}
+		}
+
+		return new self($id);
+	}
+
+	public static function best_remaining_woba($players, $used)
+	{
+		$high = $id = 0;
+		//We don't want to count the player if they've been used already.
+		foreach ($players as $player) {
+			if (in_array($player->id(), $used)) continue;
+			$stats = new self($player->id());
+			if ($stats->woba() > $high) {
+				$high = $stats->woba();
+				$id = $stats->id();
+			}
+		}
+
+		return new self($id);
+	}
+
+
 	private function _populate($id)
 	{
 		$query = "SELECT * FROM `batting` WHERE `player` = :id";

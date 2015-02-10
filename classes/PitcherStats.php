@@ -26,6 +26,41 @@ class PitcherStats extends Player
 		$this->_populate($id);
 	}
 
+	public static function best_remaining_whip($players, $used)
+	{
+		$id = 0;
+		$high = INF;
+		//We don't want to count the player if they've been used already.
+		foreach ($players as $player) {
+			if (in_array($player->id(), $used) || !$player->is_pitcher) continue;
+			$stats = new self($player->id());
+			if ($stats->whip() < $high) {
+				$high = $stats->whip();
+				$id = $stats->id();
+			}
+		}
+
+		return new self($id);
+	}
+	
+	public static function best_remaining_fip($players, $used)
+	{
+		$id = 0;
+		$high = INF;
+		//We don't want to count the player if they've been used already.
+		foreach ($players as $player) {
+			if (in_array($player->id(), $used) || !$player->is_pitcher) continue;
+			$stats = new self($player->id());
+			if ($stats->fip() < $high) {
+				$high = $stats->fip();
+				$id = $stats->id();
+			}
+		}
+
+		return new self($id);
+	}
+
+
 	private function _populate($id)
 	{
 		$query = "SELECT * FROM `pitching` WHERE `player` = :id";
@@ -118,6 +153,8 @@ class PitcherStats extends Player
 	{
 		return $this->h / ($this->bf - $this->bb - $this->hbp - $this->sh - $this->sf);
 	}
+
+	
 
 
 }

@@ -72,7 +72,7 @@ $sidebar_html = '<div class="col-sm-3 col-md-2 sidebar">
 						<li><a href="#">General Manager Tools</a></li>
 					</ul>
 					<ul class="nav nav-sidebar">
-						<li><a href="#">Next Game&trade;</a></li>
+						<li id="next-game"><a href="[@WWW_SITE]next_game.php">Next Game&trade;</a></li>
 					</ul>
 				</div>';
 

@@ -10,14 +10,30 @@ if ($user) {
 							<th>Name</th>
 							<th>Batting Average</th>
 						</tr>";
+	$pitchers_html = "<tr>
+							<th>#</th>
+							<th>Name</th>
+							<th>Earned Run Average</th>
+						</tr>";
 	foreach ($user->team()->players() as $player) {
+		$stats = new BatterStats($player->id());
 		$position_player_html .= "<tr>
 			<td>" . $player->number . "</td>
 			<td>" . $player->name . "</td>
-			<td>.000</td>
+			<td>" . sprintf("%.3f", $stats->avg()) . "</td>
 		</tr>";
+		if (!$player->is_pitcher()) continue;
+		$pstats = new PitcherStats($player->id());
+		$pitchers_html .= "<tr>
+					<td>" . $player->number() . "</td>
+					<td>" . $player->name() . "</td>
+					<td>" . sprintf("%.3f", $pstats->era()) . "</td>
+				</tr>";
 	}
 	$template->set("position_player", $position_player_html);
+	$template->set("pitchers", $pitchers_html);
+
+
 	$template->set("team_name", $user->team()->name());
 } else {
 	$template->set_view("splash");
