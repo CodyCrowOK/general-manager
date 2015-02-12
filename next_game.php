@@ -1,7 +1,7 @@
 <?php
 require "manager.php";
 
-if ($user = new User(2)) {
+if ($user) {
 	$template->set_view("next_game");
 	$template->set("NAV_ACTIVE_ID", "next-game");
 

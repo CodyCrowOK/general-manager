@@ -22,6 +22,8 @@ require_once "classes/GameBatter.php";
 require_once "classes/GamePitcher.php";
 require_once "classes/BatterStats.php";
 require_once "classes/PitcherStats.php";
+require_once "classes/OffenseWorkspace.php";
+require_once "classes/Lineup.php";
 $template = new Template();
 $session = new Session();
 session_set_save_handler($session, true);
@@ -69,9 +71,9 @@ $sidebar_html = '<div class="col-sm-3 col-md-2 sidebar">
 					<ul class="nav nav-sidebar">
 						<li id="offense"><a href="[@WWW_SITE]offense.php">Team Offensive Statistics</a></li>
 						<li id="pitching"><a href="[@WWW_SITE]pitching.php">Team Pitching Statistics</a></li>
-						<li><a href="#">General Manager Tools</a></li>
 					</ul>
 					<ul class="nav nav-sidebar">
+						<li id="workspace"><a href="[@WWW_SITE]workspace.php">General Manager Workspace</a></li>
 						<li id="next-game"><a href="[@WWW_SITE]next_game.php">Next Game&trade;</a></li>
 					</ul>
 				</div>';

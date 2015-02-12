@@ -76,4 +76,6 @@ class User
 		$team = new Team($this->team_id);
 		return $team;
 	}
+
 }
+?>
