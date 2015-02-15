@@ -1,12 +1,24 @@
 <?php
-class Player
+class Player implements JsonSerializable
 {
-	protected $id;
+	public $id;
 	public $team;
 	public $name;
 	public $number;
 	public $is_pitcher;
 	protected $db;
+
+	public function jsonSerialize()
+	{
+		$stats = new BatterStats($this->id);
+		return [
+			'id' => $this->id,
+			'name' => $this->name,
+			'number' => $this->number,
+			'is_pitcher' => $this->is_pitcher,
+			'avg' => sprintf("%.3f", $stats->avg())
+		];
+	}
 
 	public function __construct($id)
 	{

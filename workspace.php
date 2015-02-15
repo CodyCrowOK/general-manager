@@ -8,7 +8,7 @@ if ($user) {
 	//Does the user have any lineups?
 	$offense = new OffenseWorkspace($user->team()->id());
 
-
+	/*
 	if (!count($offense->lineups)) {
 		$lineup_list = "<a href=\"#\" id=\"new-lineup\" class=\"list-group-item active\">New Lineup...</a>";
 	} else {
@@ -20,14 +20,17 @@ if ($user) {
 		$lineup_list .= "<a href=\"#\" id=\"new-lineup\" class=\"list-group-item\"><em>New Lineup...</em></a>";
 
 		
-	}
+	}*/
 
 	//Get Lineups and pass them to the front end.
 	$js_data = $offense->get_json_representation();
 
+	$js_player_data = json_encode($user->team()->players());
+
 	
 	$template->set("js_data", $js_data);
-	$template->set("lineup_list", $lineup_list);
+	$template->set("js_player_data", $js_player_data);
+	//$template->set("lineup_list", $lineup_list);
 	$template->set("team_name", $user->team()->name());
 } else {
 	$template->set_view("splash");
