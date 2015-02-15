@@ -37,7 +37,7 @@
 							<h2 id="lineup-header">Current Lineup <small>{{workingLineup.name}}</small></h2>
 							<ol class="list-group" ng-show="lineup_exists"> 
 								<li class="list-group-item">Player <span class="badge">&#8470;</span></li>
-								<li class="list-group-item" ng-repeat="player in workingLineup.order" ng-drag="true" ng-drag-data="player" ng-drop="true" ng-drop-success="onDropComplete($index, $data, $event)" style="cursor:move;"> <strong>{{$index + 1}}.</strong> {{player.name}} <span class="badge">#{{player.number}}</span></li>
+								<li class="list-group-item" ng-repeat="player in workingLineup.order" ng-drag="true" ng-drag-data="player" ng-drag-success="noPrevent()" ng-drop="true" ng-drop-success="onDropComplete($index, $data, $event)" style="cursor:move;"> <strong>{{$index + 1}}.</strong> {{player.name}} <span class="badge">#{{player.number}}</span></li>
 							</ol>
 							<button class="btn btn-primary">Save Lineup</button>
 						</div>
@@ -90,6 +90,11 @@
 					var playerIds = $scope.workingLineup.order.map(function(obj) {
 						return +obj.id;
 					});
+
+					if (playerIds.indexOf(obj.id) != -1) {
+						$scope.workingLineup.order[playerIds.indexOf(obj.id)] = $scope.workingLineup.order[index];
+					}
+
 					$scope.workingLineup.order[index] = obj;
 				};
 
@@ -98,6 +103,10 @@
 						return +obj.id;
 					});
 					if (playerIds.indexOf(+player.id) != -1) $scope.preventDrag = true;
+				};
+
+				$scope.noPrevent = function() {
+					return;
 				};
 			});
 		</script>
