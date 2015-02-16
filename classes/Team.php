@@ -56,4 +56,9 @@ class Team
 		$this->_load_players();
 		return $this->players;
 	}
+
+	public function user()
+	{
+		return $this->user;
+	}
 }

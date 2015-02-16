@@ -12,7 +12,7 @@ class Player implements JsonSerializable
 	{
 		$stats = new BatterStats($this->id);
 		return [
-			'id' => $this->id,
+			'id' => (int) $this->id,
 			'name' => $this->name,
 			'number' => $this->number,
 			'is_pitcher' => $this->is_pitcher,

@@ -26,5 +26,42 @@ class Lineup {
 			$this->order[] = new Player($id);
 		}
 	}
+
+	public static function save_lineup($id, $name, $order, $user_id, $team_id)
+	{
+		$db = new PDO('mysql:host=localhost;dbname=manager;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_PERSISTENT => true));
+
+		if (!is_numeric($id)) return http_response_code(400);
+		//First, make sure the user is authorized for this.
+		file_put_contents("/home/cody/log.txt", "a" . $id, FILE_APPEND);
+		
+		if ($id > 0) {
+			$authq = "SELECT `user` FROM `workspace_lineup` WHERE `id` = :id";
+			$authstmt = $db->prepare($authq);
+			$authstmt->bindParam(':id', $id, PDO::PARAM_INT);
+			$authstmt->execute();
+			$row = $authstmt->fetch();
+			if ($row["user"] != $user_id) return http_response_code(401);
+
+			$query = "UPDATE `workspace_lineup` SET `name` = :name, `json` = :json WHERE `id` = :id";
+			$json_order = json_encode($order);
+			$stmt = $db->prepare($query);
+			$stmt->bindParam(':name', $name);
+			$stmt->bindParam(':json', $json_order);
+			$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+			$stmt->execute();
+		} else {
+			die('here');
+			$query = "INSERT INTO `workspace_lineup` (`name`, `user`, `team`, `json`) VALUES (:name, :user, :team, :json)";
+			$json_order = json_encode($order);
+			$stmt = $db->prepare($query);
+			$stmt->bindParam(':name', $name);
+			$stmt->bindParam(':user', $user_id, PDO::PARAM_INT);
+			$stmt->bindParam(':team', $team_id, PDO::PARAM_INT);
+			$stmt->bindParam(':json', $json_order);
+			$stmt->execute();
+		}
+
+	}
 }
 ?>

@@ -76,6 +76,11 @@ class User
 		$team = new Team($this->team_id);
 		return $team;
 	}
-
+	
+	public function id()
+	{
+		trigger_error("User::id(): Do not use this function. Do not use this function. Don't do it. You don't want to. Really. Using it means you are almost certainly structuring the code incorrectly. Use caution", E_USER_WARNING);
+		return $this->id;
+	}
 }
 ?>

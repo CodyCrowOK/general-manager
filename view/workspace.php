@@ -36,10 +36,11 @@
 						<div class="col-md-4">
 							<h2 id="lineup-header">Current Lineup <small>{{workingLineup.name}}</small></h2>
 							<ol class="list-group" ng-show="lineup_exists"> 
-								<li class="list-group-item">Player <span class="badge">&#8470;</span></li>
+								<li class="list-group-item" ng-drop="true" ng-drop-success="onDropComplete(-2, $data, $event)">Player <span class="badge">&#8470;</span></li>
 								<li class="list-group-item" ng-repeat="player in workingLineup.order" ng-drag="true" ng-drag-data="player" ng-drag-success="noPrevent()" ng-drop="true" ng-drop-success="onDropComplete($index, $data, $event)" style="cursor:move;"> <strong>{{$index + 1}}.</strong> {{player.name}} <span class="badge">#{{player.number}}</span></li>
 							</ol>
-							<button class="btn btn-primary">Save Lineup</button>
+							<input type="hidden" value="{{lineups}}" name="json" />	
+							<button class="btn btn-primary" id="save-button" ng-click="saveLineups()">Save Lineups</button> <span class="text-danger">{{message}}</span>
 						</div>
 						<div class="col-md-4">
 							<h2 id="players-header">Players</h2>
@@ -51,7 +52,7 @@
 							<h2 id="lineups-header">Lineups</h2>
 							<div class="list-group">
 								<a href="#" id="lineup-{{lineup.id}}" class="list-group-item" ng-repeat="lineup in lineups" ng-click="switchLineup(lineup.id)">{{lineup.name}}</a>
-								<a href="#" id="new-lineup" class="list-group-item">New Lineup...</a>
+								<a href="#" id="new-lineup" ng-click="newLineup()" class="list-group-item">New Lineup...</a>
 						
 							</div>
 						</div>
@@ -67,7 +68,7 @@
 		<script type="text/javascript">
 			angular.module('baseball', ['ngDraggable']);
 
-			angular.module('baseball').controller('bodyController', function($scope) {
+			angular.module('baseball').controller('bodyController', function($scope, $http) {
 				$scope.lineups = [@js_data];
 
 				$scope.players = [@js_player_data];
@@ -75,18 +76,25 @@
 				$scope.workingLineup = $scope.lineups[0];
 
 				$scope.switchLineup = function(lineupId) {
-					$scope.workingLineup = $scope.lineups[lineupId - 1];
+				//	$scope.workingLineup = $scope.lineups[lineupId - 1];
+					var lineupIds = $scope.lineups.map(function(obj) {
+						return obj.id;
+					});
+					
+					$scope.workingLineup = $scope.lineups[lineupIds.indexOf(lineupId)];
 
 				};
 
 				if ($scope.lineups[0]) $scope.lineup_exists = 1;
 
 				$scope.onDropComplete = function(index, obj, evt) {
-					//if ($scope.workingLineup.order.indexOf(obj) !== -1) return;
+					if (index === -2) index = 0;
 					if ($scope.preventDrag) {
 						$scope.preventDrag = false;
+						$scope.message = "You've already inserted that player.";
 						return;
 					}
+					$scope.message = "";
 					var playerIds = $scope.workingLineup.order.map(function(obj) {
 						return +obj.id;
 					});
@@ -107,6 +115,33 @@
 
 				$scope.noPrevent = function() {
 					return;
+				};
+
+				$scope.newLineup = function() {
+					var newLineup = {};
+					newLineup.id = -1;
+					newLineup.name = prompt("New lineup name:");
+					newLineup.order = [];
+					for (var i = 0; i < 9; i++) {
+						newLineup.order.push({id: 0});
+					}
+					newLineup.db = {};
+					
+
+
+					$scope.lineups.push(newLineup);
+				};
+
+				$scope.saveLineups = function() {
+					$http.post('[@WWW_SITE]api/workspace.php', $scope.lineups)
+					.success(function(data, status, headers, config) {
+						console.log($scope.lineups);
+						$scope.message = 'Lineups saved!';	
+					})
+					.error(function(data, status, headers, config) {
+						console.log($scope.lineups);
+						$scope.message = 'Lineups saved!';
+					});
 				};
 			});
 		</script>
