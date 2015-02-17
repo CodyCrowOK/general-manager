@@ -45,13 +45,14 @@
 						<div class="col-md-4">
 							<h2 id="players-header">Players</h2>
 							<ul class="list-group">
-								<li class="list-group-item" ng-repeat="player in players" ng-drag="true" ng-drag-data="player" ng-drag-success="playerListDrag(player)" style="cursor:move;">{{player.name}} <span class="badge">{{player.avg}}</span></li>
+								<li class="list-group-item">Player <span class="badge">AVG</span></li>
+								<li class="list-group-item" ng-repeat="player in players | orderBy:'avg':true" ng-drag="true" ng-drag-data="player" ng-drag-success="playerListDrag(player)" style="cursor:move;">{{player.name}} <span class="badge">{{player.avg}}</span></li>
 							</ul>
 						</div>
 						<div class="col-md-4">
 							<h2 id="lineups-header">Lineups</h2>
 							<div class="list-group">
-								<a href="#" id="lineup-{{lineup.id}}" class="list-group-item" ng-repeat="lineup in lineups" ng-click="switchLineup(lineup.id)">{{lineup.name}}</a>
+								<a href="" id="lineup-{{lineup.id}}" class="list-group-item" ng-repeat="lineup in lineups" ng-click="switchLineup(lineup.id)">{{lineup.name}}</a>
 								<a href="#" id="new-lineup" ng-click="newLineup()" class="list-group-item">New Lineup...</a>
 						
 							</div>
@@ -130,16 +131,15 @@
 
 
 					$scope.lineups.push(newLineup);
+					$scope.switchLineup($scope.lineups[$scope.lineups.length - 1].id);
 				};
 
 				$scope.saveLineups = function() {
 					$http.post('[@WWW_SITE]api/workspace.php', $scope.lineups)
 					.success(function(data, status, headers, config) {
-						console.log($scope.lineups);
 						$scope.message = 'Lineups saved!';	
 					})
 					.error(function(data, status, headers, config) {
-						console.log($scope.lineups);
 						$scope.message = 'Lineups saved!';
 					});
 				};

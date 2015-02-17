@@ -33,7 +33,8 @@ class Lineup {
 
 		if (!is_numeric($id)) return http_response_code(400);
 		//First, make sure the user is authorized for this.
-		file_put_contents("/home/cody/log.txt", "a" . $id, FILE_APPEND);
+	
+		file_put_contents("log2.txt", var_export($id, true) . "\n", FILE_APPEND);
 		
 		if ($id > 0) {
 			$authq = "SELECT `user` FROM `workspace_lineup` WHERE `id` = :id";
@@ -51,7 +52,6 @@ class Lineup {
 			$stmt->bindParam(':id', $id, PDO::PARAM_INT);
 			$stmt->execute();
 		} else {
-			die('here');
 			$query = "INSERT INTO `workspace_lineup` (`name`, `user`, `team`, `json`) VALUES (:name, :user, :team, :json)";
 			$json_order = json_encode($order);
 			$stmt = $db->prepare($query);
