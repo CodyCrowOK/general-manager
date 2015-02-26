@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>General Manager</title>
 
-		<link href="[@CSS_DIR]/bootstrap.css" rel="stylesheet" />
+		<link href="[@CSS_DIR]/cosmo.css" rel="stylesheet" />
 
 		<!--[if lt IE 9]>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -17,7 +17,7 @@
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">General Manager</a>
+					<a class="navbar-brand" href="[@WWW_SITE]">General Manager</a>
 					<button type="button" class="btn btn-default navbar-btn navbar-right">Sign in</button>
 				</div>
 			</div>

@@ -12,9 +12,6 @@
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-		<script src="[@CSS_DIR]/sorttable.js"></script>
-		<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.13/angular.min.js"></script>
 		<!--script type="text/javascript">
 			var lineups = [@js_data];
 			for (var i = 0; i < lineups.length; i++) {
@@ -40,7 +37,9 @@
 								<li class="list-group-item" ng-repeat="player in workingLineup.order" ng-drag="true" ng-drag-data="player" ng-drag-success="noPrevent()" ng-drop="true" ng-drop-success="onDropComplete($index, $data, $event)" style="cursor:move;"> <strong>{{$index + 1}}.</strong> {{player.name}} <span class="badge">#{{player.number}}</span></li>
 							</ol>
 							<input type="hidden" value="{{lineups}}" name="json" />	
-							<button class="btn btn-primary" id="save-button" ng-click="saveLineups()">Save Lineups</button> <span class="text-danger">{{message}}</span>
+							<button class="btn btn-primary" id="save-button" ng-click="saveLineups()">Save Lineups</button> 
+							<button class="btn btn-default" id="delete-button" ng-click="deleteLineup()"><span class="glyphicon glyphicon-remove"></span> <strong>Delete Current Lineup</strong></button>
+<span class="text-danger">{{message}}</span>
 						</div>
 						<div class="col-md-4">
 							<h2 id="players-header">Players</h2>
@@ -64,6 +63,9 @@
 			</div>
 		</div>
 		<!-- Add in active class to appropriate sidebar link -->
+		<script src="[@CSS_DIR]/sorttable.js"></script>
+		<script src="[@CSS_DIR]/jquery-latest.min.js"></script>
+		<script src="[@CSS_DIR]/angular.min.js"></script>
 		[@JS_ACTIVE]
 		<script src="[@CSS_DIR]/ngDraggable.js"></script>
 		<script type="text/javascript">
@@ -71,6 +73,7 @@
 
 			angular.module('baseball').controller('bodyController', function($scope, $http) {
 				$scope.lineups = [@js_data];
+				console.log($scope.lineups);
 
 				$scope.players = [@js_player_data];
 
@@ -141,6 +144,22 @@
 					})
 					.error(function(data, status, headers, config) {
 						$scope.message = 'Lineups saved!';
+					});
+				};
+
+				$scope.deleteLineup = function() {
+					$http.post('[@WWW_SITE]api/delete_lineup.php', $scope.workingLineup.id)
+					.success(function(data, status, headers, config) {
+						$scope.message = 'Lineup deleted.';
+
+						for (var i = $scope.lineups.length - 1; i >= 0; i--) {
+							if ($scope.lineups[i] == $scope.workingLineup) {
+								$scope.lineups.splice(i, 1);
+								break;
+							}
+						}
+						$scope.workingLineup = $scope.lineups[0];
+
 					});
 				};
 			});

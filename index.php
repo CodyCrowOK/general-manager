@@ -30,6 +30,10 @@ if ($user) {
 					<td>" . sprintf("%.3f", $pstats->era()) . "</td>
 				</tr>";
 	}
+
+	$pythagorean = $user->team()->pythagorean_expectation();
+
+	$template->set("pythag", sprintf("%.3f", $pythagorean));
 	$template->set("position_player", $position_player_html);
 	$template->set("pitchers", $pitchers_html);
 

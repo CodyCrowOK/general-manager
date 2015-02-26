@@ -10,6 +10,7 @@
 */
 define("SITE", "/var/www/html/manager/");
 define("WWW_SITE", "/manager/");
+define("VERSION", "0.95");
 
 require_once "classes/Template.php";
 require_once "classes/Session.php";
@@ -24,6 +25,7 @@ require_once "classes/BatterStats.php";
 require_once "classes/PitcherStats.php";
 require_once "classes/OffenseWorkspace.php";
 require_once "classes/Lineup.php";
+require_once "classes/Settings.php";
 $template = new Template();
 $session = new Session();
 session_set_save_handler($session, true);
@@ -87,5 +89,7 @@ $js_active_html = '<script type="text/javascript">
 			active.classList.add("active");
 		</script>';
 $template->set("JS_ACTIVE", $js_active_html);
+
+$template->set("VERSION", VERSION);
 
 ?>

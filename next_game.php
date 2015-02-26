@@ -148,6 +148,16 @@ if ($user) {
 	$template->set("whip_rotation", $whip_rotation_html);
 	$template->set("fip_rotation", $fip_rotation_html);
 	$template->set("team_name", $user->team()->name());
+
+	$js_lineup = json_encode($lineup);
+	$js_tango_lineup = json_encode($tango_lineup);
+	$js_whip_rotation = json_encode($whip_rotation);
+	$js_fip_rotation = json_encode($fip_rotation);
+	$template->set("js_lineup", $js_lineup);
+	$template->set("js_tango_lineup", $js_tango_lineup);
+	$template->set("js_whip_rotation", $js_whip_rotation);
+	$template->set("js_fip_rotation", $js_fip_rotation);
+
 } else {
 	$template->set_view("splash");
 }

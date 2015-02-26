@@ -41,6 +41,38 @@ class Team
 		}
 	}
 
+	public function pythagorean_expectation()
+	{
+		$earned_runs = 0;
+		//This should allow us to approximate runs allowed from ER
+		$runs_allowed_coefficient = exp(.087);
+		$query = "SELECT `er` FROM `pitching` WHERE `team` = :team";
+		$stmt = $this->db->prepare($query);
+		$stmt->bindParam(':team', $this->id, PDO::PARAM_INT);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		
+		foreach ($result as $row) {
+			$earned_runs += $row["er"];
+		}
+
+		$runs_allowed = $earned_runs * $runs_allowed_coefficient;
+
+		$runs_scored = 0;
+		$query_batting = "SELECT `r` FROM `batting` WHERE `team` = :team";
+		$stmt_batting = $this->db->prepare($query_batting);
+		$stmt_batting->bindParam(':team', $this->id, PDO::PARAM_INT);
+		$stmt_batting->execute();
+		$rows = $stmt_batting->fetchAll();
+		foreach ($rows as $row) {
+			$runs_scored += $row["r"];
+		}
+
+		$pythag = pow($runs_scored, 1.83) / (pow($runs_scored, 1.83) + pow($runs_allowed, 1.83));
+
+		return $pythag;
+	}
+
 	public function id()
 	{
 		return $this->id;

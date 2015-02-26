@@ -21,7 +21,7 @@
 			<div class="row">
 				[@SIDEBAR]
 				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-					<h1 class="page-header">Team Overview <small>[@team_name]</small></h1>
+					<h1 class="page-header">Team Overview <small>[@team_name] &mdash; Pythagorean Win Percentage: [@pythag] </small></h1>
 					<h3>Position Players</h3>
 					<table class="table sortable">
 						[@position_player]

@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>General Manager</title>
 
-		<link href="[@CSS_DIR]/bootstrap.css" rel="stylesheet" />
+		<link href="[@CSS_DIR]/cosmo.css" rel="stylesheet" />
 
 		<!--[if lt IE 9]>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -17,7 +17,7 @@
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">General Manager</a>
+					<a class="navbar-brand" href="[@WWW_SITE]">General Manager</a>
 					<a class="btn btn-default navbar-btn navbar-right" href="[@WWW_SITE]login.php">Sign in</a>
 				</div>
 			</div>
@@ -35,7 +35,7 @@
 					<input type="email" class="form-control" id="email" name="email" placeholder="Email" />
 				</div>
 				<div class="form-group">
-					<label for="password">Your Name:</label>
+					<label for="password">Password:</label>
 					<input type="password" class="form-control" id="password" name="password" placeholder="Password" />
 				</div>
 				<button type="submit" class="btn btn-large btn-primary">Sign Up</button>

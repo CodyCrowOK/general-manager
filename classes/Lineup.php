@@ -63,5 +63,15 @@ class Lineup {
 		}
 
 	}
+
+	public function delete_lineup($id, $team_id)
+	{
+		$db = new PDO('mysql:host=localhost;dbname=manager;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_PERSISTENT => true));
+		$query = "DELETE FROM `workspace_lineup` WHERE `id` = :id AND `team` = :team";
+		$stmt = $db->prepare($query);
+		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+		$stmt->bindParam(':team', $team_id, PDO::PARAM_INT);
+		$stmt->execute();
+	}
 }
 ?>

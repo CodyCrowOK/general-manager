@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="next-game">
 	<head>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -14,7 +14,7 @@
 		<![endif]-->
 		<script src="[@CSS_DIR]/sorttable.js"></script>
 	</head>
-	<body>
+	<body ng-controller="bodyController">
 		[@NAV]
 
 		<div class="container-fluid">
@@ -24,21 +24,25 @@
 					<h1 class="page-header">Next Game <small>[@team_name]</small></h1>
 					<div class="row">
 						<h2>Offensive Analysis</h2>	
-						<div class="col-md-3">
-							<h3>Traditional Lineup</h3>
-							<ol class="list-group">
-								<li class="list-group-item">Player <span class="badge">AVG</span></li> 
-								[@simple_lineup]
-							</ol>
+						<div class="col-md-7">
+							<div class="col-md-6">
+								<h3>Traditional Lineup</h3>
+								<ol class="list-group">
+									<li class="list-group-item">Player <span class="badge">AVG</span></li> 
+									[@simple_lineup]
+								</ol>
+								<button class="pull-right btn btn-default" ng-click="useLineup()">Use Traditional Lineup</button>
+							</div>
+							<div class="col-md-6">
+								<h3>Tango Lineup</h3>
+								<ol class="list-group">
+									<li class="list-group-item">Player <span class="badge">AVG</span></li>
+									[@tango_lineup]
+								</ol>
+								<button class="pull-right btn btn-default" ng-click="useTangoLineup()">Use Tango Lineup</button>
+							</div>
 						</div>
-						<div class="col-md-3">
-							<h3>Tango Lineup</h3>
-							<ol class="list-group">
-								<li class="list-group-item">Player <span class="badge">AVG</span></li>
-								[@tango_lineup]
-							</ol>
-						</div>
-						<div class="col-md-6">
+						<div class="col-md-5">
 							<h3>Lineup Generation Methods</h3>
 							<div class="col-md-12 panel panel-default">
 								<h3>Traditional Lineup</h3>
@@ -55,23 +59,25 @@
 					</div>
 				<div class="row">
 					<h2>Pitching Analysis</h2>
-					<div class="col-md-3">
-						<h3>WHIP Rotation</h3>
-							<ol class="list-group">
-								<li class="list-group-item">Pitcher <span class="badge">ERA</span></li>
-								[@whip_rotation]
-							</ol>
-
-					</div>
-					<div class="col-md-3">
-						<h3>FIP Rotation</h3>
-							<ol class="list-group">
-								<li class="list-group-item">Pitcher <span class="badge">ERA</span></li>
-								[@fip_rotation]
-							</ol>
-
-					</div>
+					<div class="col-md-7">
 						<div class="col-md-6">
+							<h3>WHIP Rotation</h3>
+								<ol class="list-group">
+									<li class="list-group-item">Pitcher <span class="badge">ERA</span></li>
+									[@whip_rotation]
+								</ol>
+
+						</div>
+						<div class="col-md-6">
+							<h3>FIP Rotation</h3>
+								<ol class="list-group">
+									<li class="list-group-item">Pitcher <span class="badge">ERA</span></li>
+									[@fip_rotation]
+								</ol>
+
+						</div>
+					</div>
+						<div class="col-md-5">
 							<h3>Pitching Rotation Generation Methods</h3>
 							<div class="col-md-12 panel panel-default">
 								<h3>WHIP Rotation</h3>
@@ -93,5 +99,50 @@
 		</div>
 		<!-- Add in active class to appropriate sidebar link -->
 		[@JS_ACTIVE]
+		<script src="[@CSS_DIR]/angular.min.js"></script>
+		<script type="text/javascript">
+			angular.module('next-game', []);
+
+			angular.module('next-game').controller('bodyController', function($scope, $window, $http) {
+				$scope.lineup = [@js_lineup];
+				$scope.tangoLineup = [@js_tango_lineup];
+				$scope.whipRotation = [@js_whip_rotation];
+				$scope.fipRotation = [@js_fip_rotation];
+
+				$scope.useLineup = function() {
+					var orderArray = [];
+					angular.forEach($scope.lineup, function(element) {
+						orderArray.push(element);
+					});
+					var lineup = {
+						name: "Traditional Lineup",
+						id: -1,
+						order: orderArray
+					};
+					$http.post('[@WWW_SITE]api/workspace.php', [lineup])
+					.success(function() {
+						$window.location.href = 'workspace.php';
+					});
+				}
+
+				$scope.useTangoLineup = function() {
+					var orderArray = [];
+					angular.forEach($scope.tangoLineup, function(element) {
+						orderArray.push(element);
+					});
+					var lineup = {
+						name: "Tango Lineup",
+						id: -1,
+						order: orderArray
+					};
+					$http.post('[@WWW_SITE]api/workspace.php', [lineup])
+					.success(function() {
+						$window.location.href = 'workspace.php';
+					});
+				}
+
+
+			});
+		</script>
 	</body>
 </html>

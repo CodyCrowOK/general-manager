@@ -1,0 +1,18 @@
+footer {
+	margin-top:30px;
+	padding:80px;
+	text-align:center;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	line-height: 1.42857143;
+	border-top: 1px solid #e5e5e5;
+}
+
+footer ul {
+	list-style-type:none;
+}
+
+footer li {
+	display:inline;
+	padding:0 2px;
+}
