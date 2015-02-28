@@ -26,6 +26,7 @@ require_once "classes/PitcherStats.php";
 require_once "classes/OffenseWorkspace.php";
 require_once "classes/Lineup.php";
 require_once "classes/Settings.php";
+require_once "classes/UserSettings.php";
 $template = new Template();
 $session = new Session();
 session_set_save_handler($session, true);
@@ -52,7 +53,7 @@ $nav_html = '<nav class="navbar navbar-inverse navbar-fixed-top">
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="[@WWW_SITE]">Dashboard</a></li>
 						<li id="settings-top"><a href="[@WWW_SITE]settings.php">Settings</a></li>
-						<li><a href="#">Help</a></li>
+						<!--li><a href="#">Help</a></li-->
 						<li><a href="[@WWW_SITE]logout.php">Sign out</a></li>
 					</ul>
 					<!--form class="navbar-form navbar-right">

@@ -43,7 +43,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-2">
-					<img class="img-responsive" src="[@WWW_SITE]images/logos/angular.png" alt="PHP logo" />
+					<img class="img-responsive" src="[@WWW_SITE]images/logos/angular.png" alt="AngularJS logo" />
 				</div>
 				<div class="col-md-10">
 					<p>Some of this website's functionality, particularly the workspace, uses AngularJS. AngularJS is a JavaScript library/framework for the front end. Some people build entire applications using it, but I prefer not to.</p>
@@ -51,7 +51,15 @@
 			</div>
 			<div class="row">
 				<div class="col-md-2">
-					<img class="img-responsive" src="[@WWW_SITE]images/logos/mariadb.png" alt="PHP logo" />
+					<img class="img-responsive" src="[@WWW_SITE]images/logos/jquery.png" alt="jQuery logo" />
+				</div>
+				<div class="col-md-10">
+					<p>jQuery is another javascript library that is used for part of the website.</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2">
+					<img class="img-responsive" src="[@WWW_SITE]images/logos/mariadb.png" alt="MariaDB logo" />
 				</div>
 				<div class="col-md-10">
 					<p>The database software used for this website is MariaDB, a fork of MySQL. It could have just as easily been Postgres, which has more features, but MariaDB is faster.</p>
