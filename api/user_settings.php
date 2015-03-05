@@ -1,7 +1,7 @@
 <?php
 require_once "/var/www/html/manager/manager.php";
 
-if ($user = new User(2)) {
+if ($user) {
 
 	$js_object = json_decode(file_get_contents("php://input"));
 

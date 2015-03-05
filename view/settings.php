@@ -42,11 +42,11 @@
 								<input type="email" class="form-control" placeholder="jsmith@gmail.com" ng-model="inputEmail" />
 
 								<h3>Change Password</h3>
-								<input type="text" class="form-control" placeholder="hunter2" ng-model="inputPassword" />
+								<input type="password" class="form-control" placeholder="hunter2" ng-model="inputPassword" />
 
 								<div class="row small-margin-top">
 									<div class="col-md-6">
-										
+										<span ng-model="userSettingsMessage"></span>
 									</div>
 									<div class="col-md-6">
 										<button ng-click="saveUserSettings()" class="pull-right btn btn-default">Save Profile Information</button>
@@ -63,10 +63,7 @@
 										<span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-										<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Atlanta Braves</a></li>
-										<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-										<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-										<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Add New Team...</a></li>
+										<li role="presentation" ng-repeat="team in teamSettings.teams"><a role="menuitem" tabindex="-1" href="" ng-click="switchActiveTeams(team.id)">{{team.name}}</a></li>
 									</ul>
 								</div>
 
@@ -85,7 +82,7 @@
 								</div>
 								<div class="row small-margin-top">
 									<div class="col-md-6">
-										<p class="text-success">Team settings saved!</p>
+										<p class="text-success" ng-bind="teamSettingsMessage"></p>
 									</div>
 									<div class="col-md-6">
 										<button class="pull-right btn btn-default">Save Team Settings</button>
@@ -105,7 +102,6 @@
 			angular.module('settings', []);
 			angular.module('settings').controller('bodyController', function($scope, $http) {
 				$scope.userSettings = [@js_user_settings];
-				console.log($scope.userSettings);
 
 				$scope.saveUserSettings = function() {
 					console.log($scope.inputName, $scope.inputEmail, $scope.inputPassword);
@@ -138,7 +134,17 @@
 						$http.post('[@WWW_SITE]api/user_settings.php', password);
 					}
 
+					$scope.userSettingsMessage = "Profile information saved!";
 
+				};
+
+				$scope.teamSettings = [@js_team_settings];
+				console.log($scope.teamSettings);
+				$scope.switchActiveTeams = function(teamId) {
+					$http.post('[@WWW_SITE]api/switch_teams.php', teamId)
+					.then(function() {
+						$scope.teamSettingsMessage = "Switched active team.";
+					});
 				};
 			});
 		</script>

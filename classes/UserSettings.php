@@ -25,6 +25,23 @@ class UserSettings extends Settings
 		$this->password = "";
 	}
 
+	public static function switch_team($user_id, $team_id)
+	{
+		$db = new PDO('mysql:host=localhost;dbname=manager;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_PERSISTENT => true));
+		//Make sure the team belongs to the user.
+		$check_query = "SELECT * FROM `team` WHERE `user` = :user";
+		$check_stmt = $db->prepare($check_query);
+		$check_stmt->bindParam(':user', $user_id, PDO::PARAM_INT);
+		$check_stmt->execute();
+		if (!$check_stmt->rowCount()) return;
+
+		$query = "UPDATE `user` SET `active_team` = :team WHERE `id` = :user";
+		$stmt = $db->prepare($query);
+		$stmt->bindParam(':team', $team_id, PDO::PARAM_INT);
+		$stmt->bindParam(':user', $user_id, PDO::PARAM_INT);
+		$stmt->execute();
+	}
+
 	public static function update_name($user_id, $value)
 	{
 		$db = new PDO('mysql:host=localhost;dbname=manager;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_PERSISTENT => true));

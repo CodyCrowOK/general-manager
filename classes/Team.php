@@ -1,5 +1,5 @@
 <?php
-class Team
+class Team implements JsonSerializable
 {
 	private $id;
 	private $user;
@@ -14,6 +14,14 @@ class Team
 		$this->db = new PDO('mysql:host=localhost;dbname=manager;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_PERSISTENT => true));
 		$this->_load_team($id);
 		//$this->_load_players();
+	}
+
+	public function jsonSerialize()
+	{
+		return [
+			'id' => $this->id,
+			'name' => $this->name
+		];
 	}
 
 	private function _load_team($id)

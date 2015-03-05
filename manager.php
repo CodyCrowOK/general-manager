@@ -27,6 +27,7 @@ require_once "classes/OffenseWorkspace.php";
 require_once "classes/Lineup.php";
 require_once "classes/Settings.php";
 require_once "classes/UserSettings.php";
+require_once "classes/TeamSettings.php";
 $template = new Template();
 $session = new Session();
 session_set_save_handler($session, true);
