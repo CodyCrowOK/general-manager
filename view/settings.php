@@ -67,11 +67,11 @@
 									</ul>
 								</div>
 
-								<h3>Number of Innings per Game</h3>
+								<h3>Number of Innings per Game <small><em>In Progress/Non-functional</em></small></h3>
 								<p>This is used in the calculation of BB/9, K/9, et al. in place of 9.</p>
 								<input type="number" min="1" max="9" placeholder="9" class="form-control" />
 
-								<h3>Make Team Public</h3>
+								<h3>Make Team Public <small><em>In Progress/Non-functional</em></small></h3>
 								<div class="row">
 									<div class="col-md-2">
 										<input type="checkbox" value="true" class="form-control" />

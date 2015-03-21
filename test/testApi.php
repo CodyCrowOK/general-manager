@@ -1,6 +1,7 @@
 <?php
 require_once "/var/www/html/manager/manager.php";
 
-UserSettings::update_password(2, "password");
+$user = new User(2);
+Player::create_player($user->team()->id(), "James", 45, 1);
 
 ?>

@@ -39,6 +39,19 @@ class Player implements JsonSerializable
 		else return true;
 	}
 
+	public static function create_player($team, $name, $number, $is_pitcher)
+	{
+		$is_pitcher ? $is_pitcher = 1 : $is_pitcher = 0;
+		$db = new PDO('mysql:host=localhost;dbname=manager;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_PERSISTENT => true));
+		$query = "INSERT INTO `player` (`team`, `name`, `number`, `is_pitcher`) VALUES (:team, :name, :number, :is_pitcher)";
+		$stmt = $db->prepare($query);
+		$stmt->bindParam(':team', $team, PDO::PARAM_INT);
+		$stmt->bindParam(':name', $name);
+		$stmt->bindParam(':number', $number, PDO::PARAM_INT);
+		$stmt->bindParam(':is_pitcher', $is_pitcher, PDO::PARAM_INT);
+		$stmt->execute();
+	}
+
 	private function _load_player($id)
 	{
 		$query = "SELECT * FROM `player` WHERE `id` = :id";
@@ -74,17 +87,17 @@ class Player implements JsonSerializable
 	{
 		return $this->team;
 	}
-	
+
 	public function name()
 	{
 		return htmlentities($this->name);
 	}
-	
+
 	public function number()
 	{
 		return $this->number;
 	}
-	
+
 	public function is_pitcher()
 	{
 		return $this->is_pitcher;

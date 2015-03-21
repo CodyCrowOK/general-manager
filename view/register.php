@@ -38,9 +38,11 @@
 					<label for="password">Password:</label>
 					<input type="password" class="form-control" id="password" name="password" placeholder="Password" />
 				</div>
+				<div class="form-group">
+					<label for="teamname">Team Name:</label>
+					<input type="text" class="form-control" id="teamname" name="teamname" placeholder="Montreal Expos" />
+				</div>
 				<button type="submit" class="btn btn-large btn-primary">Sign Up</button>
-
-
 			</form>
 		</div>
 	</body>

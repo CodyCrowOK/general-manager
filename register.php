@@ -1,8 +1,8 @@
 <?php
 require "manager.php";
 
-if ($_POST["name"] && $_POST["email"] && $_POST["password"]) {
-	$message = User::create_user($_POST["name"], $_POST["email"], $_POST["password"]);
+if ($_POST["name"] && $_POST["email"] && $_POST["password"] && $_POST["teamname"]) {
+	$message = User::create_user($_POST["name"], $_POST["email"], $_POST["password"], $_POST["teamname"]);
 	if (!$message) {
 		header('Location: login.php');
 	}
