@@ -18,7 +18,7 @@
 				jQuery(function($){
 				    var $button = $('#new-offense-row'),
 				        $row = $('.offense-row').clone();
-				    
+
 				    $button.click(function(){
 				        $row.clone().insertAfter( $('.offense-row:last') );
 				    });
@@ -26,7 +26,7 @@
 				jQuery(function($){
 				    var $button = $('#new-pitching-row'),
 				        $row = $('.pitching-row').clone();
-				    
+
 				    $button.click(function(){
 				        $row.clone().insertAfter( $('.pitching-row:last') );
 				    });
@@ -127,7 +127,7 @@
 										[@select_options_pitchers]
 									</select>
 								</td>
-								<td><input type="hidden" name="pstart[]" value="0" /><input class="form-control" type="checkbox" /></td>
+								<td><input type="hidden" name="pstart[]" value="0" /><input class="form-control" type="checkbox" onclick="this.previousSibling.value=1-this.previousSibling.value" /></td>
 								<td><input type="hidden" name="pw[]" value="0" /><input class="form-control" type="checkbox" onclick="this.previousSibling.value=1-this.previousSibling.value"  /></td>
 								<td><input type="hidden" name="pl[]" value="0" /><input class="form-control" type="checkbox" onclick="this.previousSibling.value=1-this.previousSibling.value" /></td>
 								<td><input type="hidden" name="phold[]" value="0" /><input class="form-control" type="checkbox" onclick="this.previousSibling.value=1-this.previousSibling.value" /></td>
