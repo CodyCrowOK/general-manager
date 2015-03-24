@@ -17,7 +17,7 @@ require_once "classes/Session.php";
 require_once "classes/User.php";
 require_once "classes/Team.php";
 require_once "classes/Player.php";
-require_once "classes/Game.php";	
+require_once "classes/Game.php";
 require_once "classes/Site.php";
 require_once "classes/GameBatter.php";
 require_once "classes/GamePitcher.php";
@@ -78,7 +78,7 @@ $sidebar_html = '<div class="col-sm-3 col-md-2 sidebar">
 					</ul>
 					<ul class="nav nav-sidebar">
 						<li id="workspace"><a href="[@WWW_SITE]workspace.php">General Manager Workspace</a></li>
-						<li id="next-game"><a href="[@WWW_SITE]next_game.php">Next Game&trade;</a></li>
+						<li id="next-game"><a href="[@WWW_SITE]next_game.php">Next Game</a></li>
 					</ul>
 				</div>';
 
