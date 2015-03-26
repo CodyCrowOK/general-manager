@@ -65,6 +65,7 @@
 									<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 										<li role="presentation" ng-repeat="team in teamSettings.teams"><a role="menuitem" tabindex="-1" href="" ng-click="switchActiveTeams(team.id)">{{team.name}}</a></li>
 									</ul>
+									<button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal">Add New Team</button>
 								</div>
 
 								<h3>Number of Innings per Game <small><em>In Progress/Non-functional</em></small></h3>
@@ -94,13 +95,36 @@
 				</div>
 			</div>
 		</div>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Add New Team</h4>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="form-group">
+								<label for="teamName">Team Name</label>
+								<input type="text" class="form-control" id="teamName" placeholder="St. Louis Brown Stockings" ng-model="teamName" />
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" ng-click="addTeam()" data-dismiss="modal">Add Team</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		[@JS_ACTIVE]
 		<script src="[@CSS_DIR]/jquery-latest.min.js"></script>
 		<script src="[@CSS_DIR]/bootstrap.min.js"></script>
 		<script src="[@CSS_DIR]/angular.min.js"></script>
 		<script type="text/javascript">
 			angular.module('settings', []);
-			angular.module('settings').controller('bodyController', function($scope, $http) {
+			angular.module('settings').controller('bodyController', function($scope, $http, $window) {
 				$scope.userSettings = [@js_user_settings];
 
 				$scope.saveUserSettings = function() {
@@ -144,6 +168,18 @@
 					$http.post('[@WWW_SITE]api/switch_teams.php', teamId)
 					.then(function() {
 						$scope.teamSettingsMessage = "Switched active team.";
+					});
+				};
+
+
+				$scope.addTeam = function() {
+					var obj = {
+						name: $scope.teamName
+					};
+					console.log($scope.teamName);
+					$http.post('[@WWW_SITE]api/add_team.php', obj).
+					then(function() {
+						$window.location.reload();
 					});
 				};
 			});

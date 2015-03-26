@@ -24,6 +24,17 @@ class Team implements JsonSerializable
 		];
 	}
 
+	public static function add_team($name, $user_id)
+	{
+		$db = new PDO('mysql:host=localhost;dbname=manager;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_PERSISTENT => true));
+		$query = "INSERT INTO `team` (`user`, `name`) VALUES (:user, :name);";
+		$stmt = $db->prepare($query);
+		$stmt->bindParam(':user', $user_id, PDO::PARAM_INT);
+		$stmt->bindParam(':name', $name);
+		$stmt->execute();
+
+	}
+
 	private function _load_team($id)
 	{
 		$query = "SELECT * FROM `team` WHERE `id` = :id";
@@ -59,7 +70,7 @@ class Team implements JsonSerializable
 		$stmt->bindParam(':team', $this->id, PDO::PARAM_INT);
 		$stmt->execute();
 		$result = $stmt->fetchAll();
-		
+
 		foreach ($result as $row) {
 			$earned_runs += $row["er"];
 		}

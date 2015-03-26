@@ -70,6 +70,7 @@
 		<script src="[@CSS_DIR]/jquery-latest.min.js"></script>
 		<script src="[@CSS_DIR]/bootstrap.min.js"></script>
 		<script src="[@CSS_DIR]/angular.min.js"></script>
+		<script src="[@CSS_DIR]/angular-route.min.js"></script>
 		<script type="text/javascript">
 			angular.module('index', []);
 			angular.module('index').controller('playerController', function($scope, $http, $window) {
