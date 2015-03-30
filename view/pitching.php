@@ -47,9 +47,9 @@
 						<thead>
 							<th>Name</th>
 							<th>WHIP</th>
-							<th>H/9</th>
-							<th>BB/9</th>
-							<th>K/9</th>
+							<th>H/<span class="innings"></span></th>
+							<th>BB/<span class="innings"></span></th>
+							<th>K/<span class="innings"></span></th>
 							<th>K/BB</th>
 							<th>FIP</th>
 							<th>Quality Starts</th>
@@ -65,5 +65,11 @@
 		</div>
 		<!-- Add in active class to appropriate sidebar link -->
 		[@JS_ACTIVE]
+		<script src="[@CSS_DIR]/jquery-latest.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('.innings').text('[@user_innings]');
+			});
+		</script>
 	</body>
 </html>

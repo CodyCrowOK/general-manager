@@ -1,7 +1,7 @@
 <?php
 require "manager.php";
 
-if ($user) {
+if ($user)) {
 	$template->set_view("pitching");
 	$template->set("NAV_ACTIVE_ID", "pitching");
 
@@ -9,7 +9,7 @@ if ($user) {
 	$advanced_rows = "";
 	foreach ($user->team()->players() as $player) {
 		if (!$player->is_pitcher()) continue;
-		$stats = new PitcherStats($player->id());
+		$stats = new PitcherStats($player->id(), $user->settings->innings);
 		$standard_rows .= "<tr>
 					<td>" . $stats->name() . "</td>
 					<td>" . sprintf("%.3f", $stats->era()) . "</td>
@@ -45,6 +45,7 @@ if ($user) {
 
 	$template->set("standard_rows", $standard_rows);
 	$template->set("advanced_rows", $advanced_rows);
+	$template->set("user_innings", $user->settings->innings);
 
 	$template->set("team_name", $user->team()->name());
 } else {

@@ -5,6 +5,7 @@ class UserSettings extends Settings
 	public $name;
 	public $email;
 	public $password;
+	public $innings;
 
 
 	public function __construct($id)
@@ -23,6 +24,19 @@ class UserSettings extends Settings
 		$this->name = $row["name"];
 		$this->email = $row["email"];
 		$this->password = "";
+		//$this->innings = 7;
+		//Get from `settings`
+		$settings_query = "SELECT * FROM `settings` WHERE `user` = :id";
+		$settings_stmt = $this->db->prepare($settings_query);
+		$settings_stmt->bindParam(':id', $id, PDO::PARAM_INT);
+		$settings_stmt->execute();
+		$rows = $settings_stmt->fetchAll();
+		$innings = -1;
+		foreach ($rows as $row) {
+			if ($row["key"] == "innings") $innings = $row["value"];
+		}
+		if ($innings == -1) $this->innings = 9;
+		else $this->innings = $innings;
 	}
 
 	public static function switch_team($user_id, $team_id)
@@ -76,7 +90,15 @@ class UserSettings extends Settings
 		$stmt->execute();
 	}
 
+	public static function update_innings($user_id, $value)
+	{
+		$db = new PDO('mysql:host=localhost;dbname=manager;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_PERSISTENT => true));
 
-
+		$query = "REPLACE INTO `settings` (`user`, `key`, `value`) VALUES (:user, 'innings', :value)";
+		$stmt = $db->prepare($query);
+		$stmt->bindParam(':user', $user_id, PDO::PARAM_INT);
+		$stmt->bindParam(':value', $value);
+		$stmt->execute();
+	}
 
 }

@@ -8,6 +8,7 @@ class User
 	private $team_id;
 	public $team;
 	private $db;
+	public $settings;
 
 	public function __construct($id)
 	{
@@ -17,6 +18,7 @@ class User
 		$this->name = $row["name"];
 		$this->email = $row["email"];
 		$this->team_id = $row["active_team"];
+		$this->settings = new UserSettings($id);
 	}
 
 	public static function create_user($name, $email, $password, $teamname)

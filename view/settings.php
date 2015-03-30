@@ -70,7 +70,7 @@
 
 								<h3>Number of Innings per Game <small><em>In Progress/Non-functional</em></small></h3>
 								<p>This is used in the calculation of BB/9, K/9, et al. in place of 9.</p>
-								<input type="number" min="1" max="9" placeholder="9" class="form-control" />
+								<input type="number" min="1" max="9" placeholder="9" class="form-control" ng-model="inningsSetting" />
 
 								<h3>Make Team Public <small><em>In Progress/Non-functional</em></small></h3>
 								<div class="row">
@@ -86,7 +86,7 @@
 										<p class="text-success" ng-bind="teamSettingsMessage"></p>
 									</div>
 									<div class="col-md-6">
-										<button class="pull-right btn btn-default">Save Team Settings</button>
+										<button class="pull-right btn btn-default" ng-click="saveTeamSettings()">Save Team Settings</button>
 									</div>
 								</div>
 							</div>
@@ -181,6 +181,13 @@
 					then(function() {
 						$window.location.reload();
 					});
+				};
+
+				$scope.saveTeamSettings = function() {
+					$http.post('[@WWW_SITE]api/change_innings.php', $scope.inningsSetting)
+					.then(function() {
+						console.log('worked');
+					})
 				};
 			});
 		</script>

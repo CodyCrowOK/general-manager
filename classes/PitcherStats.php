@@ -18,12 +18,14 @@ class PitcherStats extends Player
 
 	private $g;
 	private $qs;
+	private $innings;
 
-	public function __construct($id)
+	public function __construct($id, $innings)
 	{
 		parent::__construct($id);
 		$this->starts = $this->w = $this->l = $this->ip = $this->h = $this->bb = $this->bb = $this->hbp = $this->er = $this->k = $this->holds = $this->s = $this->bs = $this->bf = $this->hr = 0;
 		$this->_populate($id);
+		$this->innings = $innings;
 	}
 
 	public static function best_remaining_whip($players, $used)
@@ -42,7 +44,7 @@ class PitcherStats extends Player
 
 		return new self($id);
 	}
-	
+
 	public static function best_remaining_fip($players, $used)
 	{
 		$id = 0;
@@ -73,7 +75,7 @@ class PitcherStats extends Player
 			if ($row["start"]) $this->starts++;
 			if ($row["win"]) $this->w++;
 			if ($row["loss"]) $this->l++;
-			
+
 			//Handle IP
 			$current_remainder = fmod($this->ip, 1.0);
 			$current_whole = $this->ip - $current_remainder;
@@ -95,7 +97,7 @@ class PitcherStats extends Player
 			$this->bf += $row["bf"];
 			$this->hr += $row["hr"];
 
-			if ($row["start"] && $row["ip"] >= 6 && $row["er"] <= 3) $this->qs++;
+			if ($row["start"] && $row["ip"] >= floor((6 / 9) * $this->innings) && $row["er"] <= 3) $this->qs++;
 		}
 	}
 
@@ -106,7 +108,7 @@ class PitcherStats extends Player
 
 	public function era()
 	{
-		return ($this->er / $this->ip) * 9;
+		return ($this->er / $this->ip) * $this->innings;
 	}
 
 	public function whip()
@@ -116,17 +118,17 @@ class PitcherStats extends Player
 
 	public function h9()
 	{
-		return ($this->h / $this->ip) * 9;
+		return ($this->h / $this->ip) * $this->innings;
 	}
 
 	public function k9()
 	{
-		return ($this->k / $this->ip) * 9;
+		return ($this->k / $this->ip) * $this->innings;
 	}
 
 	public function bb9()
 	{
-		return ($this->bb / $this->ip) * 9;
+		return ($this->bb / $this->ip) * $this->innings;
 	}
 
 	public function k_per_bb()
@@ -154,7 +156,7 @@ class PitcherStats extends Player
 		return $this->h / ($this->bf - $this->bb - $this->hbp - $this->sh - $this->sf);
 	}
 
-	
+
 
 
 }

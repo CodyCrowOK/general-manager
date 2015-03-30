@@ -23,7 +23,7 @@ if ($user) {
 			<td>" . sprintf("%.3f", $stats->avg()) . "</td>
 		</tr>";
 		if (!$player->is_pitcher()) continue;
-		$pstats = new PitcherStats($player->id());
+		$pstats = new PitcherStats($player->id(), $user->settings->innings);
 		$pitchers_html .= "<tr>
 					<td>" . $player->number() . "</td>
 					<td>" . $player->name() . "</td>
