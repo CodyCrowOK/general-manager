@@ -1,7 +1,7 @@
 <?php
 require "manager.php";
 
-if ($user)) {
+if ($user) {
 	$template->set_view("pitching");
 	$template->set("NAV_ACTIVE_ID", "pitching");
 
