@@ -16,7 +16,5 @@ It provides the following features:
 ## Design Concerns
 This website was written in PHP with MariaDB, using AngularJS and jQuery whenever they were useful.
 
-1. PDO instances are all over the place. Rather than do the extra work to have only one instance of PDO, I've decided to instantiate it wherever it was useful. Frankly, there is no good way to do it, and using a bash script on deployment to replace them with the appropriate MariaDB credentials is easier and better than other ways I've seen.
-2. I wrote this with the opinion that single page applications are a bit silly. I don't care for them, and as a result the use of AngularJS in this application is not always (or ever) in line with standard usage. 
-3. All necessary class files are included in the manager.php file, which must be included in every application page. The reason behind this is that auto-loading is still slower than all of those require statements, and so it just doesn't make switch to transition to that yet, as far as I can tell.
-4. The necessary SQL dump is at classes/manager.sql. You probably will need to disable foreign key checking.
+1. The necessary SQL dump is at classes/manager.sql. You probably will need to disable foreign key checking.
+2. This was originally built several years ago (at the time of writing), so the architectural choices are not always great. That said, there's no point in rewriting it now.
